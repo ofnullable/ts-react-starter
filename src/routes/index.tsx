@@ -8,8 +8,8 @@ const SamplePage = loadable(() => import('../pages/SamplePage'));
 const Router = () => {
   return (
     <Switch>
-      <Route exact path="/" render={() => <HomePage />} />
-      <Route path="/sample" render={() => <SamplePage />} />
+      <Route exact path="/" component={HomePage} />
+      <Route path="/sample" component={SamplePage} />
     </Switch>
   );
 };

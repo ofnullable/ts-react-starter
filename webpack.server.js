@@ -1,8 +1,8 @@
 const { resolve } = require('path');
 const nodeExternals = require('webpack-node-externals');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const { prod } = require('./webpack.config');
+const prod = process.env.NODE_ENV === 'production';
 
 const loaders = {
   html: {
@@ -14,7 +14,7 @@ const loaders = {
   ts: {
     loader: 'ts-loader',
   },
-  style: prod ? MiniCssExtractPlugin.loader : 'style-loader',
+  style: 'style-loader',
   css: {
     loader: 'css-loader',
     options: {
@@ -22,6 +22,22 @@ const loaders = {
     },
   },
   sass: 'sass-loader',
+  postcss: {
+    loader: 'postcss-loader',
+    options: {
+      ident: 'postcss',
+      plugins: () => [
+        require('postcss-flexbugs-fixes'),
+        require('postcss-preset-env')({
+          autoprefixer: {
+            flexbox: 'no-2009',
+          },
+          stage: 3,
+        }),
+        require('cssnano'),
+      ],
+    }
+  },
 };
 
 module.exports = {
@@ -48,11 +64,8 @@ module.exports = {
       test: /\.tsx?$/,
       use: [loaders.babel, loaders.ts],
     }, {
-      test: /\.css$/,
-      use: [loaders.style, loaders.css],
-    }, {
       test: /\.s[ac]ss$/,
-      use: [loaders.style, loaders.css, loaders.sass],
+      use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],
     }],
   },
 
@@ -61,5 +74,7 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
 
-  externals: ['@loadable/component', nodeExternals()],
+  externals: [nodeExternals()],
+
+  plugins: [new CleanWebpackPlugin()],
 };

@@ -2,8 +2,9 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LoadablePlugin = require('@loadable/webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const { prod } = require('./webpack.config');
+const prod = process.env.NODE_ENV === 'production';
 const hotMiddlewareScript = `webpack-hot-middleware/client?path=/__webpack_hmr&reload=true`;
 
 const loaders = {
@@ -19,6 +20,17 @@ const loaders = {
   style: prod ? MiniCssExtractPlugin.loader : 'style-loader',
   css: 'css-loader',
   sass: 'sass-loader',
+  postcss: {
+    loader: 'postcss-loader',
+    options: {
+      ident: 'postcss',
+      plugins: () => [
+        require('postcss-flexbugs-fixes'),
+        require('postcss-preset-env')({ stage: 3 }),
+        require('cssnano'),
+      ],
+    }
+  },
 };
 
 module.exports = {
@@ -33,7 +45,7 @@ module.exports = {
   },
 
   output: {
-    path: resolve(__dirname, 'dist'),
+    path: resolve(__dirname, 'build'),
     filename: '[name].js',
     chunkFilename: 'static/js/[name].chunk.js',
     publicPath: '/',
@@ -44,11 +56,8 @@ module.exports = {
       test: /\.tsx?$/,
       use: [loaders.babel, loaders.ts],
     }, {
-      test: /\.css$/,
-      use: [loaders.style, loaders.css],
-    }, {
       test: /\.s[ac]ss$/,
-      use: [loaders.style, loaders.css, loaders.sass],
+      use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],
     }],
   },
 
@@ -58,15 +67,13 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new LoadablePlugin(),
-    ...(prod
-      ? [
+    new CleanWebpackPlugin(),
+    prod ?
         new MiniCssExtractPlugin({
           filename: 'static/css/[name].[hash:8].css',
           chunkFilename: 'static/css/[name].[hash:8].chunk.css',
-        }),
-      ]
-      : []),
+        })
+        : new webpack.HotModuleReplacementPlugin()
   ],
 };

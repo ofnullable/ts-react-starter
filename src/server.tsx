@@ -10,7 +10,7 @@ import App from './App';
 const app = express();
 
 const prod = process.env.NODE_ENV === 'production';
-const statsFile = resolve('./dist/loadable-stats.json');
+const statsFile = resolve('./build/loadable-stats.json');
 
 if (!prod) {
   const webpack = require('webpack');
@@ -29,7 +29,7 @@ if (!prod) {
 }
 
 app.use(
-  express.static(resolve('./dist'), {
+  express.static(resolve('./build'), {
     index: false,
   })
 );
