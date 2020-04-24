@@ -3,12 +3,12 @@
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "esnext",
+    "moduleResolution": "node",
     "target": "es5",
     "jsx": "react",
     "strict": true,
     "allowJs": false,
     "lib": ["dom", "dom.iterable", "esnext"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src"]
 }

@@ -18,6 +18,7 @@ const loaders = {
   },
   style: prod ? MiniCssExtractPlugin.loader : 'style-loader',
   css: 'css-loader',
+  sass: 'sass-loader',
 };
 
 module.exports = {
@@ -39,16 +40,16 @@ module.exports = {
   },
 
   module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: [loaders.babel, loaders.ts],
-      },
-      {
-        test: /\.css$/,
-        use: [loaders.style, loaders.css],
-      },
-    ],
+    rules: [{
+      test: /\.tsx?$/,
+      use: [loaders.babel, loaders.ts],
+    }, {
+      test: /\.css$/,
+      use: [loaders.style, loaders.css],
+    }, {
+      test: /\.s[ac]ss$/,
+      use: [loaders.style, loaders.css, loaders.sass],
+    }],
   },
 
   resolve: {
@@ -61,11 +62,11 @@ module.exports = {
     new LoadablePlugin(),
     ...(prod
       ? [
-          new MiniCssExtractPlugin({
-            filename: 'static/css/[name].[hash:8].css',
-            chunkFilename: 'static/css/[name].[hash:8].chunk.css',
-          }),
-        ]
+        new MiniCssExtractPlugin({
+          filename: 'static/css/[name].[hash:8].css',
+          chunkFilename: 'static/css/[name].[hash:8].chunk.css',
+        }),
+      ]
       : []),
   ],
 };
