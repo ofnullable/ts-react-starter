@@ -1,11 +1,13 @@
 import * as express from 'express';
 import * as React from 'react';
 import { resolve } from 'path';
+import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
 import App from './App';
+import configureStore from './stores';
 
 const app = express();
 
@@ -35,23 +37,29 @@ app.use(
 );
 
 app.get('*', (req, res) => {
-  if (req.url.includes('favicon')) return res.status(404).end();
+  if (req.url.includes('favicon')) return res.sendStatus(404);
 
   const context = {};
+  const store = configureStore({}, { isServer: true });
   const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 
   const html = renderToString(
     <ChunkExtractorManager extractor={extractor}>
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
+      <Provider store={store}>
+        <StaticRouter location={req.url} context={context}>
+          <App />
+        </StaticRouter>
+      </Provider>
     </ChunkExtractorManager>
   );
+
+  const stateString = JSON.stringify(store.getState()).replace(/</g, '\\u003c');
+  const preloadState = `<script id="preload-state">__REDUX_STATE__ = ${stateString}</script>`;
 
   const tags = {
     links: extractor.getLinkTags(),
     styles: extractor.getStyleTags(),
-    scripts: extractor.getScriptTags(),
+    scripts: preloadState + extractor.getScriptTags(),
   };
 
   res.set('content-type', 'text/html');
