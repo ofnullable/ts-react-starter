@@ -4,6 +4,10 @@ import Router from './routes/index';
 
 import './styles/app.scss';
 
+if (typeof Proxy === 'undefined') {
+  require('immer').enableES5();
+}
+
 const App = () => {
   return (
     <AppLayout>

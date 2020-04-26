@@ -42,6 +42,8 @@ app.get('*', async (req, res, next) => {
 
   const context = {};
   const store = configureStore({}, { isServer: true });
+  const sagaPromises = store.run.toPromise();
+
   const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 
   const jsx = (
@@ -55,10 +57,10 @@ app.get('*', async (req, res, next) => {
   );
 
   renderToStaticMarkup(jsx);
-  store.close()
+  store.close();
 
   try {
-    await store.run.toPromise();
+    await sagaPromises;
   } catch (e) {
     next(e);
   }
