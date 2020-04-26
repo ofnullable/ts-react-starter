@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { User } from '../stores/models';
+import { IUser } from '../stores/models';
 
 interface UserProps {
-  user: User | null,
+  user: IUser | null,
   loading: boolean,
 }
 
