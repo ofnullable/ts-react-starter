@@ -1,0 +1,18 @@
+import * as React from 'react';
+import { User } from '../stores/models';
+
+interface UserProps {
+  user: User | null,
+  loading: boolean,
+}
+
+const User = ({ user, loading }: UserProps) => {
+  return loading ?
+    <p>load user...</p> :
+    <>
+      <h1>{user?.username} ({user?.name})</h1>
+      <p><b>email:</b> {user?.email}</p>
+    </>;
+};
+
+export default User;
