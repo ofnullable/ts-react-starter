@@ -31,7 +31,8 @@ const Header = () => {
       <nav>
         <NavLink exact to="/">Go Home</NavLink>
         <NavLink to="/sample">Go Sample</NavLink>
-        <NavLink to='/error'>Go Error</NavLink>
+        <NavLink to="/users">Go Users</NavLink>
+        <NavLink to="/error">Go Error</NavLink>
       </nav>
     </header>
   );

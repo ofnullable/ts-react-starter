@@ -37,8 +37,9 @@ const Footer = () => {
     <footer css={footerStyle}>
       <span>TS-React-Starter</span>
       <nav>
-        <NavLink exact to='/'>Home</NavLink>
-        <NavLink to='/sample'>sample</NavLink>
+        <NavLink exact to="/">Home</NavLink>
+        <NavLink to="/sample">Sample</NavLink>
+        <NavLink to="/users">Users</NavLink>
       </nav>
     </footer>
   );
