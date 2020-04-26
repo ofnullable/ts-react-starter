@@ -1,19 +1,34 @@
-import { compose, createStore } from 'redux';
+import { applyMiddleware, compose, createStore, Store, Action } from 'redux';
+import createSagaMiddleware, { END, Task } from 'redux-saga';
 
-import reducers, { AppState } from './reducers';
+import rootReducer, { AppState } from './reducers';
+import rootSaga from './sagas';
+
+declare const window: Window & { __REDUX_DEVTOOLS_EXTENSION__?: () => any };
 
 interface AppContext {
   isServer?: boolean
 }
 
-function configureStore(preloadState: AppState | {}, context: AppContext) {
-  const devtools = !context.isServer && (window as any).__REDUX_DEVTOOLS_EXTENSION__;
+const prod = process.env.NODE_ENV === 'production';
+
+function configureStore(reduxState: AppState | {}, context: AppContext) {
+  const devtools = !context.isServer && window.__REDUX_DEVTOOLS_EXTENSION__;
+
+  const sagaMiddleware = createSagaMiddleware();
 
   const enhancer = compose(
-    devtools ? devtools() : (f: any) => f,
+    applyMiddleware(sagaMiddleware),
+    !prod && devtools ? devtools() : (f: any) => f,
   );
 
-  return createStore(reducers, preloadState, enhancer);
+  const store = createStore(rootReducer, reduxState, enhancer) as
+    Store<AppState, Action> & { dispatch: unknown, run: Task, close: () => unknown };
+
+  store.run = sagaMiddleware.run(rootSaga);
+  store.close = () => store.dispatch(END);
+
+  return store;
 }
 
 export default configureStore;

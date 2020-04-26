@@ -18,6 +18,4 @@ export interface AppState {
   users: ReturnType<typeof users>
 }
 
-const rootReducer = combineReducers({ users });
-
-export default rootReducer;
+export default combineReducers({ users });

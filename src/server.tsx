@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as React from 'react';
 import { resolve } from 'path';
 import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
@@ -24,6 +24,7 @@ if (!prod) {
     require('webpack-dev-middleware')(compiler, {
       heartbeat: 2000,
       publicPath: '/',
+      serverSideRender: true,
     })
   );
 
@@ -36,14 +37,14 @@ app.use(
   })
 );
 
-app.get('*', (req, res) => {
+app.get('*', async (req, res, next) => {
   if (req.url.includes('favicon')) return res.sendStatus(404);
 
   const context = {};
   const store = configureStore({}, { isServer: true });
   const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 
-  const html = renderToString(
+  const jsx = (
     <ChunkExtractorManager extractor={extractor}>
       <Provider store={store}>
         <StaticRouter location={req.url} context={context}>
@@ -53,17 +54,26 @@ app.get('*', (req, res) => {
     </ChunkExtractorManager>
   );
 
+  renderToStaticMarkup(jsx);
+  store.close()
+
+  try {
+    await store.run.toPromise();
+  } catch (e) {
+    next(e);
+  }
+
   const stateString = JSON.stringify(store.getState()).replace(/</g, '\\u003c');
-  const preloadState = `<script id="preload-state">__REDUX_STATE__ = ${stateString}</script>`;
+  const reduxState = `<script id="redux-state">__REDUX_STATE__ = ${stateString}</script>`;
 
   const tags = {
     links: extractor.getLinkTags(),
     styles: extractor.getStyleTags(),
-    scripts: preloadState + extractor.getScriptTags(),
+    scripts: reduxState + extractor.getScriptTags(),
   };
 
   res.set('content-type', 'text/html');
-  res.send(`
+  return res.send(`
     <!doctype html>
     <html lang="en">
     <head>
@@ -75,7 +85,7 @@ app.get('*', (req, res) => {
         ${tags.links}
     </head>
     <body>
-        <div id="root">${html}</div>
+        <div id="root">${renderToString(jsx)}</div>
         ${tags.scripts}
     </body>
     </html>

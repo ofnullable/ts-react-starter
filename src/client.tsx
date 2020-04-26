@@ -4,19 +4,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { loadableReady } from '@loadable/component';
 
-import 'react-app-polyfill/ie11';
-import 'react-app-polyfill/stable';
-
 import App from './App';
 import configureStore from './stores';
+import { AppState } from './stores/reducers';
 
-const store = configureStore(
-  (window as any).__REDUX_STATE__,
-  {}
-);
+declare const window: Window & { __REDUX_STATE__: AppState };
 
-delete (window as any).__REDUX_STATE__;
-document.getElementById('preload-state')?.remove();
+const store = configureStore(window.__REDUX_STATE__, {});
 
 loadableReady(() => {
   ReactDOM.hydrate(
@@ -27,7 +21,8 @@ loadableReady(() => {
     </Provider>,
     document.getElementById('root')
   );
-});
+})
+  .then(() => delete window.__REDUX_STATE__);
 
 if (module.hot) {
   module.hot.accept();
