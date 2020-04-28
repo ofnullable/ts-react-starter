@@ -2,14 +2,14 @@ import * as express from 'express';
 import * as React from 'react';
 import { resolve } from 'path';
 import { Provider } from 'react-redux';
-import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
-
-const router = express.Router();
 
 import configureStore from '../store';
 import App from '../App';
+
+const router = express.Router();
 
 const statsFile = resolve('./build/loadable-stats.json');
 

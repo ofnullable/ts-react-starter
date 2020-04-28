@@ -1,5 +1,5 @@
 /**
- * Hot Module Replacement middlewares
+ * webpack 'H'ot 'M'odule 'R'eplacement
  */
 const webpack = require('webpack');
 const webpackConfig = require('../../webpack.client.js');

@@ -9,7 +9,7 @@ const loaders = {
     loader: 'babel-loader',
   },
   ts: {
-    loader: 'ts-loader'
+    loader: 'ts-loader',
   },
   style: 'style-loader',
   css: {
@@ -26,7 +26,7 @@ const loaders = {
       limit: 8192,
       emitFile: false,
       name: 'static/media/[name].[hash:8].[ext]',
-    }
+    },
   },
 };
 
@@ -36,7 +36,7 @@ module.exports = {
   target: 'node',
 
   node: {
-    __dirname: false
+    __dirname: false,
   },
 
   entry: {
@@ -60,7 +60,7 @@ module.exports = {
       use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],
     }, {
       test: /\.(jpe?g|png|gif|bmp)$/,
-      use: [loaders.url]
+      use: [loaders.url],
     }],
   },
 

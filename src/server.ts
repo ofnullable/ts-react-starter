@@ -1,8 +1,8 @@
 import * as express from 'express';
-import { resolve } from "path";
+import { NextFunction, Request, Response } from 'express';
+import { resolve } from 'path';
 import ssrMiddleware from './server/ssrMiddleware';
 import { webpackDevMiddleware, webpackHotMiddleware } from './server/HMR';
-import { NextFunction, Request, Response } from 'express';
 
 const prod = process.env.NODE_ENV === 'production';
 
@@ -29,7 +29,7 @@ interface HttpError {
   message?: string,
 }
 
-app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
+app.use((err: HttpError, req: Request, res: Response, _: NextFunction) => {
   err.status = err.status || 500;
   err.message = err.message || 'Internal Server Error';
   return res.status(err.status).json({ message: err.message });
