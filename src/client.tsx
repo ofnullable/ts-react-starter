@@ -8,8 +8,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { loadableReady } from '@loadable/component';
 
 import App from './App';
-import configureStore from './stores';
-import { AppState } from './stores/reducers';
+import configureStore from './store';
+import { AppState } from './store/reducers';
 
 declare const window: Window & { __REDUX_STATE__: AppState };
 

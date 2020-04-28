@@ -6,40 +6,14 @@ import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
-import App from './App';
-import configureStore from './stores';
+const router = express.Router();
 
-const app = express();
+import configureStore from '../store';
+import App from '../App';
 
-const prod = process.env.NODE_ENV === 'production';
 const statsFile = resolve('./build/loadable-stats.json');
 
-if (!prod) {
-  const webpack = require('webpack');
-  const webpackConfig = require('../webpack.client.js');
-
-  const compiler = webpack(webpackConfig);
-
-  app.use(
-    require('webpack-dev-middleware')(compiler, {
-      heartbeat: 2000,
-      publicPath: '/',
-      serverSideRender: true,
-    })
-  );
-
-  app.use(require('webpack-hot-middleware')(compiler));
-}
-
-app.use(
-  express.static(resolve('./build'), {
-    index: false,
-  })
-);
-
-app.get('*', async (req, res, next) => {
-  if (req.url.includes('favicon')) return res.sendStatus(404);
-
+router.get('*', async (req, res, next) => {
   const context = {};
   const store = configureStore({}, { isServer: true });
   const sagaPromises = store.run.toPromise();
@@ -62,7 +36,7 @@ app.get('*', async (req, res, next) => {
   try {
     await sagaPromises;
   } catch (e) {
-    next(e);
+    return next(e);
   }
 
   const stateString = JSON.stringify(store.getState()).replace(/</g, '\\u003c');
@@ -74,7 +48,6 @@ app.get('*', async (req, res, next) => {
     scripts: reduxState + extractor.getScriptTags(),
   };
 
-  res.set('content-type', 'text/html');
   return res.send(`
     <!doctype html>
     <html lang="en">
@@ -94,5 +67,4 @@ app.get('*', async (req, res, next) => {
   `);
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server started http://localhost:${port}`));
+export default router;
