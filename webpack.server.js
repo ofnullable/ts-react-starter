@@ -8,6 +8,9 @@ const loaders = {
   babel: {
     loader: 'babel-loader',
   },
+  ts: {
+    loader: 'ts-loader'
+  },
   style: 'style-loader',
   css: {
     loader: 'css-loader',
@@ -37,7 +40,7 @@ module.exports = {
   },
 
   entry: {
-    server: './src/server.tsx',
+    server: './src/server',
   },
 
   output: {
@@ -51,7 +54,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.tsx?$/,
-      use: [loaders.babel],
+      use: [loaders.babel, loaders.ts],
     }, {
       test: /\.(c|sc|sa)ss$/,
       use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],

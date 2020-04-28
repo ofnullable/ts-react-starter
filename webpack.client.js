@@ -11,6 +11,9 @@ const loaders = {
   babel: {
     loader: 'babel-loader',
   },
+  ts: {
+    loader: 'ts-loader'
+  },
   style: prod ? MiniCssExtractPlugin.loader : 'style-loader',
   css: 'css-loader',
   sass: 'sass-loader',
@@ -45,7 +48,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.tsx?$/,
-      use: [loaders.babel],
+      use: [loaders.babel, loaders.ts],
     }, {
       test: /\.(c|sc|sa)ss$/,
       use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],

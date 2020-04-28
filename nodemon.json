@@ -1,0 +1,10 @@
+
+{
+  "watch": [
+    "src/server.ts",
+    "src/server/**",
+    "nodemon.json"
+  ],
+  "exec": "NODE_ENV=development npm run build && NODE_ENV=development node ./dist/server",
+  "ext": "tsx ts js json"
+}
