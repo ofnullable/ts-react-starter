@@ -3,7 +3,7 @@ import * as React from 'react';
 import { css, jsx } from '@emotion/core';
 
 const errorPageStyle = css`
-  height: 100%;
+  flex: 1 1;
   display: flex;
   flex-direction: column;
   align-items: center;

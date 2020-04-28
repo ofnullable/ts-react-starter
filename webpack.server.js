@@ -5,14 +5,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const prod = process.env.NODE_ENV === 'production';
 
 const loaders = {
-  html: {
-    loader: 'html-loader',
-  },
   babel: {
     loader: 'babel-loader',
-  },
-  ts: {
-    loader: 'ts-loader',
   },
   style: 'style-loader',
   css: {
@@ -22,17 +16,13 @@ const loaders = {
     },
   },
   sass: 'sass-loader',
-  postcss: {
-    loader: 'postcss-loader',
+  postcss: 'postcss-loader',
+  url: {
+    loader: 'url-loader',
     options: {
-      ident: 'postcss',
-      plugins: () => [
-        require('postcss-flexbugs-fixes'),
-        require('postcss-preset-env')({
-          stage: 3,
-        }),
-        require('cssnano'),
-      ],
+      limit: 8192,
+      emitFile: false,
+      name: 'static/media/[name].[hash:8].[ext]',
     }
   },
 };
@@ -42,7 +32,9 @@ module.exports = {
 
   target: 'node',
 
-  node: false,
+  node: {
+    __dirname: false
+  },
 
   entry: {
     server: './src/server.tsx',
@@ -61,8 +53,11 @@ module.exports = {
       test: /\.tsx?$/,
       use: [loaders.babel],
     }, {
-      test: /\.s[ac]ss$/,
+      test: /\.(c|sc|sa)ss$/,
       use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],
+    }, {
+      test: /\.(jpe?g|png|gif|bmp)$/,
+      use: [loaders.url]
     }],
   },
 

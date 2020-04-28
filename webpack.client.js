@@ -8,29 +8,18 @@ const prod = process.env.NODE_ENV === 'production';
 const hotMiddlewareScript = `webpack-hot-middleware/client?path=/__webpack_hmr&reload=true`;
 
 const loaders = {
-  html: {
-    loader: 'html-loader',
-  },
   babel: {
     loader: 'babel-loader',
-  },
-  ts: {
-    loader: 'ts-loader',
   },
   style: prod ? MiniCssExtractPlugin.loader : 'style-loader',
   css: 'css-loader',
   sass: 'sass-loader',
-  postcss: {
-    loader: 'postcss-loader',
+  postcss: 'postcss-loader',
+  url: {
+    loader: 'url-loader',
     options: {
-      ident: 'postcss',
-      plugins: () => [
-        require('postcss-flexbugs-fixes'),
-        require('postcss-preset-env')({
-          stage: 3,
-        }),
-        require('cssnano'),
-      ],
+      limit: 8192,
+      name: 'static/media/[name].[hash:8].[ext]',
     }
   },
 };
@@ -58,8 +47,11 @@ module.exports = {
       test: /\.tsx?$/,
       use: [loaders.babel],
     }, {
-      test: /\.s[ac]ss$/,
+      test: /\.(c|sc|sa)ss$/,
       use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],
+    }, {
+      test: /\.(jpe?g|png|gif|bmp)$/,
+      use: [loaders.url]
     }],
   },
 

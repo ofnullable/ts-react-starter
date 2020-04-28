@@ -5,8 +5,8 @@ import {
   loadUserAction,
   loadUserSuccess,
   loadUserFailure,
-  loadUsersFailure,
   loadUsersSuccess,
+  loadUsersFailure,
 } from '../actions/users';
 
 function* loadUser({ id }: loadUserAction) {
