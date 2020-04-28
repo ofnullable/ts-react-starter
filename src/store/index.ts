@@ -1,4 +1,4 @@
-import { applyMiddleware, compose, createStore, Store, Action } from 'redux';
+import { applyMiddleware, compose, createStore, Store, Action, Dispatch } from 'redux';
 import createSagaMiddleware, { END, Task } from 'redux-saga';
 
 import rootReducer, { AppState } from './reducers';
@@ -23,7 +23,7 @@ function configureStore(reduxState: AppState | {}, context: AppContext) {
   );
 
   const store = createStore(rootReducer, reduxState, enhancer) as
-    Store<AppState, Action> & { dispatch: unknown, run: Task, close: () => unknown };
+    Store<AppState, Action> & { dispatch: Dispatch<any>, run: Task, close: () => END };
 
   store.run = sagaMiddleware.run(rootSaga);
   store.close = () => store.dispatch(END);

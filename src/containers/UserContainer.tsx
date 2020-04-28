@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../stores/reducers';
-import { loadUserRequest } from '../stores/actions/users';
+import { AppState } from '../store/reducers';
+import { loadUserRequest } from '../store/actions/users';
 import User from '../components/User';
 
 interface RouteParams {

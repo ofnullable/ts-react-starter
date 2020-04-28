@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../stores/reducers';
-import { loadUsersRequest } from '../stores/actions/users';
+import { AppState } from '../store/reducers';
+import { loadUsersRequest } from '../store/actions/users';
 import Users from '../components/Users';
 
 const UsersContainer = () => {

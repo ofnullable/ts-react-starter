@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IUser } from '../stores/models';
+import { IUser } from '../store/models';
 
 interface UserProps {
   user: IUser | null,
