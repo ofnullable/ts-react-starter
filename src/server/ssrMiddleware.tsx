@@ -6,8 +6,8 @@ import { StaticRouter } from 'react-router-dom';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
-import configureStore from '../store';
 import App from '../App';
+import configureStore from '../store';
 
 const router = express.Router();
 

@@ -9,7 +9,7 @@ interface RouteParams {
   id: string
 }
 
-const UserContainer = () => {
+function UserContainer(props: any) {
   const { data, loading } = useSelector((state: AppState) => state.users.user);
   const params = useParams<RouteParams>();
   const dispatch = useDispatch();
@@ -20,6 +20,6 @@ const UserContainer = () => {
   }, [params, data, loading]);
 
   return <User user={data} loading={loading} />;
-};
+}
 
 export default UserContainer;

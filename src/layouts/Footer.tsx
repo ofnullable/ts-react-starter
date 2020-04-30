@@ -32,7 +32,7 @@ const footerStyle = css`
   }
 `;
 
-const Footer = () => {
+function Footer() {
   return (
     <footer css={footerStyle}>
       <span>TS-React-Starter</span>
@@ -43,6 +43,6 @@ const Footer = () => {
       </nav>
     </footer>
   );
-};
+}
 
 export default Footer;

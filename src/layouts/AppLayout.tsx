@@ -7,7 +7,7 @@ interface AppLayoutProps {
   children: React.ReactNode;
 }
 
-const AppLayout = ({ children }: AppLayoutProps) => {
+function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
       <Header />
@@ -15,6 +15,6 @@ const AppLayout = ({ children }: AppLayoutProps) => {
       <Footer />
     </>
   );
-};
+}
 
 export default AppLayout;

@@ -7,7 +7,7 @@ interface UsersProps {
   loading: boolean,
 }
 
-const Users = ({ users, loading }: UsersProps) => {
+function Users({ users, loading }: UsersProps) {
   return loading ?
     <p>load users...</p> :
     <ul>
@@ -20,6 +20,6 @@ const Users = ({ users, loading }: UsersProps) => {
         ),
       )}
     </ul>;
-};
+}
 
 export default Users;

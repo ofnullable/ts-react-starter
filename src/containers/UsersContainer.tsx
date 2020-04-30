@@ -4,7 +4,7 @@ import { AppState } from '../store/reducers';
 import { loadUsersRequest } from '../store/actions/users';
 import Users from '../components/Users';
 
-const UsersContainer = () => {
+function UsersContainer() {
   const { data, loading } = useSelector((state: AppState) => state.users.users);
   const dispatch = useDispatch();
 
@@ -14,6 +14,6 @@ const UsersContainer = () => {
   }, [data, data?.length, loading]);
 
   return <Users users={data} loading={loading} />;
-};
+}
 
 export default UsersContainer;

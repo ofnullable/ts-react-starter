@@ -25,7 +25,7 @@ const headerStyle = css`
   }
 `;
 
-const Header = () => {
+function Header() {
   return (
     <header css={headerStyle}>
       <nav>
@@ -36,6 +36,6 @@ const Header = () => {
       </nav>
     </header>
   );
-};
+}
 
 export default Header;

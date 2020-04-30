@@ -5,7 +5,7 @@ import UsersContainer from '../containers/UsersContainer';
 
 const UserContainer = loadable(() => import('../containers/UserContainer'));
 
-const UsersPage = () => {
+function UsersPage() {
   return (
     <div className="container">
       <UsersContainer />
@@ -15,6 +15,6 @@ const UsersPage = () => {
       />
     </div>
   );
-};
+}
 
 export default UsersPage;
