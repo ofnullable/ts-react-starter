@@ -11,8 +11,9 @@
     "jsx": "react",
     "strict": true,
     "allowJs": false,
-    "lib": ["dom", "dom.iterable", "esnext"]
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "typeRoots": ["src/types", "node_modules/@types"]
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "build", "dist"]
 }
