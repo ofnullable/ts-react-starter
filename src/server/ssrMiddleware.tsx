@@ -2,12 +2,23 @@ import * as express from 'express';
 import * as React from 'react';
 import { resolve } from 'path';
 import { Provider } from 'react-redux';
+import { matchRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
+import { LoadableComponent } from '@loadable/component';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
 import App from '../App';
-import configureStore from '../store';
+import { routes } from '../routes';
+import configureStore, { ReduxStore } from '../store';
+import { Request } from 'express';
+
+export interface Context {
+  req: Request;
+  store: ReduxStore;
+}
+
+type Loader = React.ComponentType<any> & { loadData?: (ctx: Context) => Promise<any> }
 
 const router = express.Router();
 
@@ -17,6 +28,18 @@ router.get('*', async (req, res, next) => {
   const context = {};
   const store = configureStore({}, { isServer: true });
   const sagaPromises = store.run.toPromise();
+
+  const promises = await Promise.all(
+    matchRoutes(routes, req.path)
+      .map(({ route }) =>
+        (route.component as LoadableComponent<any>).load())
+  )
+    .then((comps) =>
+      comps
+          .map((comp: Loader) =>
+            comp.loadData && comp.loadData({ req, store })
+          )
+    );
 
   const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 
@@ -35,6 +58,7 @@ router.get('*', async (req, res, next) => {
 
   try {
     await sagaPromises;
+    await Promise.all(promises);
   } catch (e) {
     return next(e);
   }
