@@ -9,9 +9,6 @@ import { loadableReady } from '@loadable/component';
 
 import App from './App';
 import configureStore from './store';
-import { AppState } from './store/reducers';
-
-declare const window: Window & { __REDUX_STATE__: AppState };
 
 const store = configureStore(window.__REDUX_STATE__, {});
 

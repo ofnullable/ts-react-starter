@@ -49,6 +49,7 @@ module.exports = {
     rules: [{
       test: /\.tsx?$/,
       use: [loaders.babel, loaders.ts],
+      exclude: /node_modules/,
     }, {
       test: /\.(c|sc|sa)ss$/,
       use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],
