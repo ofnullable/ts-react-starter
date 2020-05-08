@@ -5,8 +5,8 @@ import * as types from '../actions/types';
 import { UserAction } from '../actions/users';
 
 interface UserState {
-  user: BaseState<IUser>,
-  users: BaseArrayState<IUser>,
+  user: BaseState<IUser>;
+  users: BaseArrayState<IUser>;
 }
 
 const initialState: UserState = {

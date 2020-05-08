@@ -5,7 +5,7 @@ import rootReducer, { AppState } from './reducers';
 import rootSaga from './sagas';
 
 interface AppContext {
-  isServer?: boolean
+  isServer?: boolean;
 }
 
 export interface ReduxStore extends Store<AppState, Action> {
@@ -22,7 +22,7 @@ function configureStore(reduxState: AppState | {}, context: AppContext) {
 
   const enhancer = compose(
     applyMiddleware(sagaMiddleware),
-    !prod && devtools ? devtools() : (f: any) => f,
+    !prod && devtools ? devtools() : (f: any) => f
   );
 
   const store = createStore(rootReducer, reduxState, enhancer) as ReduxStore;
