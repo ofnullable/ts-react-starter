@@ -2,8 +2,8 @@ import * as types from './types';
 import { IUser } from '../models';
 
 export interface loadUserAction {
-  type: typeof types.LOAD_USER_REQUEST,
-  id: number
+  type: typeof types.LOAD_USER_REQUEST;
+  id: number;
 }
 
 export const loadUserRequest = (id: string) => ({ type: types.LOAD_USER_REQUEST, id });
@@ -21,4 +21,4 @@ export type UserAction = ReturnType<
   | typeof loadUsersRequest
   | typeof loadUsersSuccess
   | typeof loadUsersFailure
-  >
+>;

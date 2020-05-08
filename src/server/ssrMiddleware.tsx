@@ -18,7 +18,7 @@ export interface Context {
 }
 
 export type LoadData = (ctx: Context) => Promise<any>;
-type DataLoader = React.ComponentType<any> & { loadData?: LoadData }
+type DataLoader = React.ComponentType<any> & { loadData?: LoadData };
 
 const router = express.Router();
 
@@ -30,13 +30,11 @@ router.get('*', async (req, res, next) => {
   const sagaPromises = store.run.toPromise();
 
   const promises = await Promise.all(
-    matchRoutes(routes, req.path)
-      .map(
-          ({ route, match }) =>
-              (route.component as LoadableComponent<any>).load()
-                  .then((comp: DataLoader) =>
-                      comp.loadData ? comp.loadData({ store, match }) : Promise.resolve())
-      ));
+    matchRoutes(routes, req.path).map(({ route, match }) =>
+        (route.component as LoadableComponent<any>).load()
+          .then((comp: DataLoader) =>
+            comp.loadData ? comp.loadData({ store, match }) : Promise.resolve())
+    ));
 
   const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 

@@ -21,8 +21,7 @@ loadableReady(() => {
     </Provider>,
     document.getElementById('root')
   );
-})
-  .then(() => delete window.__REDUX_STATE__);
+}).then(() => delete window.__REDUX_STATE__);
 
 if (module.hot) {
   module.hot.accept();

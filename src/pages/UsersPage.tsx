@@ -2,10 +2,10 @@ import * as React from 'react';
 import { renderRoutes, RouteConfig } from 'react-router-config';
 import { loadUsersRequest } from '../store/actions/users';
 import UsersContainer from '../containers/UsersContainer';
-import { LoadData } from "../server/ssrMiddleware";
+import { LoadData } from '../server/ssrMiddleware';
 
 interface UsersPageProps {
-  route?: RouteConfig
+  route?: RouteConfig;
 }
 
 function UsersPage({ route }: UsersPageProps) {

@@ -2,17 +2,19 @@ import * as React from 'react';
 import { IUser } from '../store/models';
 
 interface UserProps {
-  user: IUser | null,
-  loading: boolean,
+  user: IUser | null;
+  loading: boolean;
 }
 
 function User({ user, loading }: UserProps) {
-  return loading ?
-    <p>load user...</p> :
-    <>
+  return loading ? (
+    <p>load user...</p>
+  ) : (
+    <div>
       <h1>{user?.username} ({user?.name})</h1>
       <p><b>email:</b> {user?.email}</p>
-    </>;
+    </div>
+  );
 }
 
 export default User;

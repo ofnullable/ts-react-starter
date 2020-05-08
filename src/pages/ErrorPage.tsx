@@ -8,7 +8,7 @@ const errorPageStyle = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
   h1 {
     color: red;
   }

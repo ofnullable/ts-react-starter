@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ReduxStore } from '../store';
 import { loadUsersRequest } from '../store/actions/users';
-import { LoadData } from "../server/ssrMiddleware";
+import { LoadData } from '../server/ssrMiddleware';
 
 function HomePage() {
   return (
