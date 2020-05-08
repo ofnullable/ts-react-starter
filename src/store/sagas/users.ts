@@ -14,7 +14,7 @@ function* loadUser({ id }: loadUserAction) {
     const { data } = yield call(loadUserApi, id);
     yield put(loadUserSuccess(data));
   } catch (e) {
-    yield put(loadUserFailure(e.response?.message));
+    yield put(loadUserFailure(e.response?.data.message));
   }
 }
 
@@ -27,7 +27,7 @@ function* loadUsers() {
     const { data } = yield call(loadUsersApi);
     yield put(loadUsersSuccess(data));
   } catch (e) {
-    yield put(loadUsersFailure(e.response?.message));
+    yield put(loadUsersFailure(e.response?.data.message));
   }
 }
 
