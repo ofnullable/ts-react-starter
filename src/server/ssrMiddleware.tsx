@@ -17,7 +17,6 @@ export interface Context {
   match: match<any>;
 }
 
-export type LoadData = (ctx: Context) => Promise<any>;
 type DataLoader = React.ComponentType<any> & { loadData?: LoadData };
 
 const router = express.Router();
@@ -29,12 +28,13 @@ router.get('*', async (req, res, next) => {
   const store = configureStore({}, { isServer: true });
   const sagaPromises = store.run.toPromise();
 
-  const promises = await Promise.all(
-    matchRoutes(routes, req.path).map(({ route, match }) =>
-        (route.component as LoadableComponent<any>).load()
-          .then((comp: DataLoader) =>
-            comp.loadData ? comp.loadData({ store, match }) : Promise.resolve())
-    ));
+  await Promise.all(
+    matchRoutes(routes, req.path)
+      .map(async ({ route, match }) => {
+        const comp: DataLoader = await (route.component as LoadableComponent<any>).load();
+        return comp.loadData ? comp.loadData({ store, match }) : Promise.resolve();
+      })
+  );
 
   const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 
@@ -53,7 +53,6 @@ router.get('*', async (req, res, next) => {
 
   try {
     await sagaPromises;
-    await Promise.all(promises);
   } catch (e) {
     return next(e);
   }
@@ -68,7 +67,7 @@ router.get('*', async (req, res, next) => {
   };
 
   return res.send(`
-    <!doctype html>
+    <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">

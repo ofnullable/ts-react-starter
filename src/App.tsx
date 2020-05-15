@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { renderRoutes } from 'react-router-config';
 
 import AppLayout from './layouts/AppLayout';
-import Router from './routes';
+import { routes } from './routes';
+
 import './styles/App.scss';
 
 if (typeof Proxy === 'undefined') {
@@ -11,7 +13,7 @@ if (typeof Proxy === 'undefined') {
 function App() {
   return (
     <AppLayout>
-      <Router />
+      {renderRoutes(routes)}
     </AppLayout>
   );
 }

@@ -1,7 +1,5 @@
 import * as React from 'react';
 import loadable from '@loadable/component';
-import { Route, Switch } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config';
 
 const HomePage = loadable(() => import('../pages/HomePage'));
 const SamplePage = loadable(() => import('../pages/SamplePage'));
@@ -9,14 +7,14 @@ const UsersPage = loadable(() => import('../pages/UsersPage'));
 const UserContainer = loadable(() => import('../containers/UserContainer'));
 const ErrorPage = loadable(() => import('../pages/ErrorPage'));
 
-interface Branch {
+export interface RouteConfig {
   path: string;
   exact?: boolean;
-  routes?: Branch[];
+  routes?: RouteConfig[];
   component: React.ComponentType;
 }
 
-export const routes: Branch[] = [{
+export const routes: RouteConfig[] = [{
   path: '/',
   exact: true,
   component: HomePage,
@@ -30,15 +28,7 @@ export const routes: Branch[] = [{
     path: '/users/:id',
     component: UserContainer,
   }],
+}, {
+  path: '*',
+  component: ErrorPage,
 }];
-
-const Router = () => {
-  return (
-    <Switch>
-      {renderRoutes(routes)}
-      <Route component={ErrorPage} />
-    </Switch>
-  );
-};
-
-export default Router;
