@@ -1,5 +1,5 @@
 {
-  "name": "ts-react-start",
+  "name": "ts-react-starter",
   "version": "0.0.1",
   "description": "React Typescript start",
   "main": "src/server.ts",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ofnullable/ts-react-start.git"
+    "url": "git+https://github.com/ofnullable/ts-react-starter.git"
   },
   "author": "ofnullable <ofnullable@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ofnullable/ts-react-start/issues"
+    "url": "https://github.com/ofnullable/ts-react-starter/issues"
   },
-  "homepage": "https://github.com/ofnullable/ts-react-start#readme",
+  "homepage": "https://github.com/ofnullable/ts-react-starter#readme",
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@loadable/component": "^5.12.0",
