@@ -35,10 +35,11 @@ const footerStyle = css`
 function Footer() {
   return (
     <footer css={footerStyle}>
-      <span>TS-React-Starter</span>
+      <span>ts react starter</span>
       <nav>
-        <NavLink exact to="/">Home</NavLink>
-        <NavLink to="/sample">Sample</NavLink>
+        <NavLink exact to="/">
+          Home
+        </NavLink>
         <NavLink to="/users">Users</NavLink>
       </nav>
     </footer>

@@ -2,17 +2,12 @@ import * as express from 'express';
 import * as React from 'react';
 import { resolve } from 'path';
 import { Provider } from 'react-redux';
-import { match, StaticRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
 import App from '../App';
-import configureStore, { ReduxStore } from '../store';
-
-export interface Context<T> {
-  store: ReduxStore;
-  match: match<T>;
-}
+import configureStore from '../store';
 
 const router = express.Router();
 

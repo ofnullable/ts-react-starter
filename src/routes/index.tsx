@@ -2,7 +2,6 @@ import * as React from 'react';
 import loadable from '@loadable/component';
 
 const HomePage = loadable(() => import('../pages/HomePage'));
-const SamplePage = loadable(() => import('../pages/SamplePage'));
 const UsersPage = loadable(() => import('../pages/UsersPage'));
 const UserContainer = loadable(() => import('../containers/UserContainer'));
 const ErrorPage = loadable(() => import('../pages/ErrorPage'));
@@ -19,10 +18,6 @@ export const routes: RouteConfig[] = [
     path: '/',
     exact: true,
     component: HomePage,
-  },
-  {
-    path: '/sample',
-    component: SamplePage,
   },
   {
     path: '/users',

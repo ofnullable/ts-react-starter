@@ -52,17 +52,21 @@ module.exports = {
   },
 
   module: {
-    rules: [{
-      test: /\.tsx?$/,
-      use: [loaders.babel, loaders.ts],
-      exclude: /node_modules/,
-    }, {
-      test: /\.(c|sc|sa)ss$/,
-      use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],
-    }, {
-      test: /\.(jpe?g|png|gif|bmp)$/,
-      use: [loaders.url],
-    }],
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: [loaders.babel, loaders.ts],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(c|sc|sa)ss$/,
+        use: [loaders.style, loaders.css, loaders.postcss, loaders.sass],
+      },
+      {
+        test: /\.(jpe?g|png|gif|bmp)$/,
+        use: [loaders.url],
+      },
+    ],
   },
 
   resolve: {

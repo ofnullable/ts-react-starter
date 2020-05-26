@@ -3,7 +3,7 @@ import * as React from 'react';
 function HomePage() {
   return (
     <div className="container">
-      <h1>Home page!!</h1>
+      <h1>Ts React Starter 🚀</h1>
     </div>
   );
 }

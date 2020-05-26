@@ -2,9 +2,9 @@
  * webpack 'H'ot 'M'odule 'R'eplacement
  */
 const webpack = require('webpack');
-const webpackConfig = require('../../webpack.client.js');
+const config = require('../../webpack.client.js');
 
-const compiler = webpack(webpackConfig);
+const compiler = webpack(config);
 
 export const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: '/',

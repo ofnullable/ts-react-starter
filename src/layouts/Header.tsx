@@ -29,8 +29,9 @@ function Header() {
   return (
     <header css={headerStyle}>
       <nav>
-        <NavLink exact to="/">Go Home</NavLink>
-        <NavLink to="/sample">Go Sample</NavLink>
+        <NavLink exact to="/">
+          Go Home
+        </NavLink>
         <NavLink to="/users">Go Users</NavLink>
         <NavLink to="/error">Go Error</NavLink>
       </nav>
