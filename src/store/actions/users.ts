@@ -1,11 +1,6 @@
 import * as types from './types';
 import { User } from '../models';
 
-export interface LoadUserAction {
-  type: typeof types.LOAD_USER_REQUEST;
-  id: number;
-}
-
 export const loadUserRequest = (id: string) => ({ type: types.LOAD_USER_REQUEST, id });
 export const loadUserSuccess = (data: User) => ({ type: types.LOAD_USER_SUCCESS, data });
 export const loadUserFailure = (error: string) => ({ type: types.LOAD_USER_FAILURE, error });
