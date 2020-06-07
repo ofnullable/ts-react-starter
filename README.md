@@ -18,12 +18,12 @@ npm install
 
 ```sh
 # run development mode
-npm run start
+npm run dev
 ```
 
 ```sh
 # run production mode
-npm run start:prod
+npm run start
 ```
 
 ## Author

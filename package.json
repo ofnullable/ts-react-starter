@@ -4,8 +4,8 @@
   "description": "React Typescript start",
   "main": "src/server.ts",
   "scripts": {
-    "start": "nodemon",
-    "start:prod": "NODE_ENV=production npm run build && NODE_ENV=production node ./dist/server",
+    "dev": "nodemon",
+    "start": "NODE_ENV=production npm run build && NODE_ENV=production node ./dist/server",
     "build": "npm run build:server && npm run build:client",
     "build:client": "BROWSERSLIST_ENV=$NODE_ENV webpack --env client",
     "build:server": "BROWSERSLIST_ENV=ssr webpack --env server"
@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "immer": "^6.0.8",
     "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "react-redux": "^7.2.0",
@@ -72,7 +73,6 @@
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
-    "react-app-polyfill": "^1.0.6",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
