@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { User } from '../store/models';
+import { loadUserRequest } from '../store/actions/users';
+import { useSelector } from 'react-redux';
+import { AppState } from '../store/reducers';
 
-interface UserProps {
-  user: User | null;
-  loading: boolean;
-}
+function User() {
+  const { data: user, loading } = useSelector((state: AppState) => state.users.user);
 
-function User({ user, loading }: UserProps) {
   return loading ? (
     <p>load user...</p>
   ) : (
@@ -22,5 +21,13 @@ function User({ user, loading }: UserProps) {
     )
   );
 }
+
+export const preload: Preload<{ id: string }> = async ({ store, match }) => {
+  const user = store.getState().users.user;
+  const needFetch = !user.data || user.data.id !== Number(match.params.id);
+  if (needFetch && !user.loading) {
+    store.dispatch(loadUserRequest(match.params.id));
+  }
+};
 
 export default User;
