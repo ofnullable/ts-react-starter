@@ -18,7 +18,7 @@ router.get('*', async (req, res, next) => {
   const store = configureStore({}, { isServer: true });
   const sagaPromises = store.run.toPromise();
 
-  await Promise.all(App.getInitialProps(store, req.url));
+  await Promise.all(App.getInitialProps(store, req.path, req.url.replace(req.path, '')));
 
   const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 

@@ -21,17 +21,17 @@ function App() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      App.getInitialProps(store, location.pathname);
+      App.getInitialProps(store, location.pathname, location.search);
     }
   }, [location]);
 
   return <AppLayout>{renderRoutes(routes)}</AppLayout>;
 }
 
-App.getInitialProps = (store: Store, path: string): Promise<unknown>[] => {
+App.getInitialProps = (store: Store, path: string, search: string): Promise<unknown>[] => {
   return matchRoutes(routes, path).map(async ({ route, match }) => {
     const comp: Container<typeof match.params> = await (route.component as LoadableComponent<unknown>).load();
-    return comp.preload?.({ store, match }) || Promise.resolve();
+    return comp.preload?.({ store, match, search }) || Promise.resolve();
   });
 };
 

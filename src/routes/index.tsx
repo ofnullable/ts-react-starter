@@ -3,7 +3,7 @@ import loadable from '@loadable/component';
 
 const HomePage = loadable(() => import('../pages/HomePage'));
 const UsersPage = loadable(() => import('../pages/UsersPage'));
-const UserContainer = loadable(() => import('../containers/UserContainer'));
+const UserComponent = loadable(() => import('../components/User'));
 const ErrorPage = loadable(() => import('../pages/ErrorPage'));
 
 export interface RouteConfig {
@@ -25,7 +25,7 @@ export const routes: RouteConfig[] = [
     routes: [
       {
         path: '/users/:id',
-        component: UserContainer,
+        component: UserComponent,
       },
     ],
   },
