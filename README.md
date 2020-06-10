@@ -1,16 +1,33 @@
-# Welcome to ts-react-starter 👋
-![Version](https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000)
+<h1 align="center">Welcome to ts-react-starter 👋</h1>  
+
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/ofnullable/ts-react-starter#readme)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/ofnullable/ts-react-starter/graphs/commit-activity)
 [![License: MIT](https://img.shields.io/github/license/ofnullable/ts-react-starter)](https://github.com/ofnullable/ts-react-starter/blob/master/LICENSE)
 
-> React-Typescript template for SSR, code splitting, redux, redux-saga!
+## An easy-to-use typescript react SSR template!
+> React app template with Typescript featuring universal React Router, Redux, Redux saga, Immer, CSS-in-JS. 🚀
 
-### 🏠 [Homepage](https://github.com/ofnullable/ts-react-starter#readme)
+### 🏠 [Demo site](https://ts-react-starter.herokuapp.com)
+
+## Features:
+
+* Universal Rendering
+
+* Code splitting with `@loadable/component`
+
+* Redux state containers.
+
+* Redux Saga for asynchronous action dispatch.
+
+* Asynchronous Data Fetching on server-side rendering
+
+* emotion for CSS-in-JS
 
 ## Install
 
 ```sh
+# install dependencies
 npm install
 ```
 
