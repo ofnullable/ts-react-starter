@@ -72,6 +72,7 @@ const client = {
       : new webpack.HotModuleReplacementPlugin(),
   ],
 };
+
 const server = {
   ...base,
   target: 'node',

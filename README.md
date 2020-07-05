@@ -1,28 +1,29 @@
-<h1 align="center">Welcome to ts-react-starter 👋</h1>  
+<h1 align="center">Welcome to ts-react-starter 👋</h1>
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?cacheSeconds=2592000)
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/ofnullable/ts-react-starter#readme)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/ofnullable/ts-react-starter/graphs/commit-activity)
 [![License: MIT](https://img.shields.io/github/license/ofnullable/ts-react-starter)](https://github.com/ofnullable/ts-react-starter/blob/master/LICENSE)
 
 ## An easy-to-use typescript react SSR template!
+
 > React app template with Typescript featuring universal React Router, Redux, Redux saga, Immer, CSS-in-JS. 🚀
 
 ### 🏠 [Demo site](https://ts-react-starter.herokuapp.com)
 
 ## Features:
 
-* Universal Rendering
+- Universal Rendering
 
-* Code splitting with `@loadable/component`
+- Code splitting with `@loadable/component`
 
-* Redux state containers.
+- Redux state containers.
 
-* Redux Saga for asynchronous action dispatch.
+- Redux Saga for asynchronous action dispatch.
 
-* Asynchronous Data Fetching on server-side rendering
+- Asynchronous Data Fetching on server-side rendering
 
-* emotion for CSS-in-JS
+- emotion for CSS-in-JS
 
 ## Install
 
@@ -47,7 +48,7 @@ npm run start
 
 👤 **ofnullable <ofnullable@gmail.com>**
 
-* Github: [@ofnullable](https://github.com/ofnullable)
+- Github: [@ofnullable](https://github.com/ofnullable)
 
 ## 🤝 Contributing
 
@@ -59,12 +60,12 @@ Feel free to check [issues page](https://github.com/ofnullable/ts-react-starter/
 
 Give a ⭐️ if this project helped you!
 
-
 ## 📝 License
 
 Copyright © 2020 [ofnullable <ofnullable@gmail.com>](https://github.com/ofnullable).
 
 This project is [MIT](https://github.com/ofnullable/ts-react-starter/blob/master/LICENSE) licensed.
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
