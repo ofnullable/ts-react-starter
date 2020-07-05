@@ -2,7 +2,7 @@
  * webpack 'H'ot 'M'odule 'R'eplacement
  */
 const webpack = require('webpack');
-const config = require('../../webpack.client.js');
+const config = require('../../config/webpack.config');
 
 const compiler = webpack(config);
 
