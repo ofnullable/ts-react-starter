@@ -3,7 +3,7 @@
     "strict": true,
     "allowJs": false,
     "sourceMap": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",

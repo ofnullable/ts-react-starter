@@ -1,5 +1,9 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
+  env: {
+    node: true,
+    browser: true,
+  },
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 2020,
@@ -7,21 +11,14 @@ module.exports = {
       jsx: true,
     },
   },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
+  plugins: ['react', '@typescript-eslint', 'react-hooks'],
   extends: [
+    'prettier',
+    'prettier/react',
+    'prettier/@typescript-eslint',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
-    'prettier/@typescript-eslint',
     'plugin:@typescript-eslint/recommended',
   ],
-  rules: {
-    '@typescript-eslint/ban-types': 0,
-    '@typescript-eslint/no-unused-vars': 0,
-    '@typescript-eslint/no-var-requires': 0,
-    '@typescript-eslint/explicit-module-boundary-types': 0,
-  },
+  rules: { 'react/jsx-uses-react': 1, 'react/prop-types': 0, '@typescript-eslint/explicit-module-boundary-types': 0 },
 };
