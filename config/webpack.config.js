@@ -21,6 +21,9 @@ const base = {
     modules: ['node_modules'],
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
+  optimization: {
+    minimize: isProd,
+  },
 };
 
 const client = {
@@ -62,7 +65,9 @@ const client = {
     }),
     new LoadablePlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+      },
     }),
     isProd
       ? new MiniCssExtractPlugin({

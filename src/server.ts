@@ -10,21 +10,22 @@ const app = express();
 app.disable('etag');
 app.disable('x-powered-by');
 
+if (!prod) {
+  app.use(webpackDevMiddleware);
+  app.use(webpackHotMiddleware);
+}
+
 app.use(
   express.static(resolve('./public'), {
     index: false,
   })
 );
+
 app.use(
   express.static(resolve('./build'), {
     index: false,
   })
 );
-
-if (!prod) {
-  app.use(webpackDevMiddleware);
-  app.use(webpackHotMiddleware);
-}
 
 app.use(renderer);
 
