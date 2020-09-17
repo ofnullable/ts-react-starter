@@ -12,7 +12,7 @@ function User() {
     user && (
       <div>
         <h1>
-          {user.username} ({user.name})
+          {user.id} {user.username} ({user.name})
         </h1>
         <p>
           <b>email:</b> {user.email}
@@ -24,9 +24,10 @@ function User() {
 
 export const preload: Preload<{ id: string }> = async ({ store, match }) => {
   const user = store.getState().users.user;
-  const needFetch = !user.data || user.data.id !== Number(match.params.id);
+  const userId = match.params.id;
+  const needFetch = !user.data || user.data.id !== Number(userId);
   if (needFetch && !user.loading) {
-    store.dispatch(loadUserRequest(match.params.id));
+    store.dispatch(loadUserRequest(userId));
   }
 };
 

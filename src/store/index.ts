@@ -15,7 +15,7 @@ export interface ReduxStore extends Store<AppState> {
 
 const prod = process.env.NODE_ENV === 'production';
 
-function configureStore(appState: AppState | {}, context: AppContext): ReduxStore {
+function configureStore(context: AppContext, appState?: AppState): ReduxStore {
   const devtools = !context.isServer && window.__REDUX_DEVTOOLS_EXTENSION__;
 
   const sagaMiddleware = createSagaMiddleware();

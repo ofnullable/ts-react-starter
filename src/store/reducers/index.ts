@@ -5,13 +5,13 @@ import users from './users';
 export interface BaseState<T> {
   data: T | null;
   loading: boolean;
-  error: string | object;
+  error: string | unknown;
 }
 
 export interface BaseArrayState<T> {
   data: T[] | null;
   loading: boolean;
-  error: string | object;
+  error: string | unknown;
 }
 
 export interface AppState {

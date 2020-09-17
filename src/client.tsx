@@ -8,21 +8,30 @@ import { BrowserRouter } from 'react-router-dom';
 import { loadableReady } from '@loadable/component';
 
 import App from './App';
-import configureStore from './store';
+import configureStore, { ReduxStore } from './store';
 
-const store = configureStore(window.__REDUX_STATE__, {});
+const store = configureStore({}, window.__REDUX_STATE__);
+const render = module.hot ? ReactDOM.render : ReactDOM.hydrate;
 
-loadableReady(() => {
-  ReactDOM.hydrate(
-    <Provider store={store}>
+function renderApp(reduxStore: ReduxStore): void {
+  return render(
+    <Provider store={reduxStore}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>,
     document.getElementById('root')
   );
-}).then(() => delete window.__REDUX_STATE__);
+}
+
+loadableReady(() => renderApp(store)).then(() => {
+  delete window.__REDUX_STATE__;
+  document.getElementById('redux-state')?.remove();
+});
 
 if (module.hot) {
-  module.hot.accept();
+  module.hot.accept(['./App', './routes', './store'], () => {
+    console.log(module.hot);
+    renderApp(store);
+  });
 }

@@ -30,10 +30,11 @@ function App() {
 }
 
 App.getInitialProps = (store: Store, path: string, search: string): Promise<unknown>[] => {
-  return matchRoutes(routes, path).map(async ({ route, match }) => {
-    const comp: Container<typeof match.params> = await (route.component as LoadableComponent<unknown>).load();
-    return comp.preload?.({ store, match, search }) || Promise.resolve();
-  });
+  return matchRoutes(routes, path).map(({ route, match }) =>
+    (route.component as LoadableComponent<unknown>)
+      .load()
+      .then((comp: Container<unknown>) => comp.preload?.({ store, match, search }) || Promise.resolve())
+  );
 };
 
 export default App;
