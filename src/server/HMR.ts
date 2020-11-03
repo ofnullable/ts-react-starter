@@ -1,6 +1,3 @@
-/**
- * webpack 'H'ot 'M'odule 'R'eplacement
- */
 const webpack = require('webpack');
 const config = require('../../config/webpack.client.config');
 

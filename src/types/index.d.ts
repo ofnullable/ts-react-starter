@@ -14,6 +14,7 @@ declare global {
     match: match<T>;
     search: string;
   }
+
   type Preload<T> = (ctx: Context<T>) => Promise<unknown>;
   type Container<T> = ComponentType<T> & { preload?: Preload<T> };
 }

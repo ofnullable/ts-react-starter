@@ -8,7 +8,6 @@ import { LoadableComponent } from '@loadable/component';
 
 import { routes } from './routes';
 import AppLayout from './layouts/AppLayout';
-
 import './styles/App.scss';
 
 if (typeof Proxy === 'undefined') {
@@ -31,9 +30,9 @@ function App() {
 
 App.getInitialProps = (store: Store, path: string, search: string): Promise<unknown>[] => {
   return matchRoutes(routes, path).map(({ route, match }) =>
-    (route.component as LoadableComponent<unknown>)
-      .load()
-      .then((comp: Container<unknown>) => comp.preload?.({ store, match, search }) || Promise.resolve())
+    (route.component as LoadableComponent<unknown>).load().then(({ default: comp }: any) => {
+      return comp.fetch?.({ store, match, search }) || Promise.resolve();
+    })
   );
 };
 

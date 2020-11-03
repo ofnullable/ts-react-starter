@@ -7,12 +7,12 @@ const footerStyle = css`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  span {
+  & > span {
     flex: 1;
     display: flex;
     justify-content: center;
   }
-  nav {
+  .menus {
     flex: 1.5;
     height: 100%;
     padding: 0 12px;
@@ -33,9 +33,9 @@ const footerStyle = css`
 
 function Footer() {
   return (
-    <footer css={footerStyle}>
-      <span>ts react starter</span>
-      <nav>
+    <footer css={[footerStyle]}>
+      <span key={'title'}>ts react starter</span>
+      <nav key={'menus'} className="menus">
         <NavLink exact to="/">
           Home
         </NavLink>

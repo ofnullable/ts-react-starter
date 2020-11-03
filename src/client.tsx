@@ -24,14 +24,18 @@ function renderApp(reduxStore: ReduxStore): void {
   );
 }
 
-loadableReady(() => renderApp(store)).then(() => {
-  delete window.__REDUX_STATE__;
-  document.getElementById('redux-state')?.remove();
-});
+// renderApp(store);
+// loadableReady()
+//   .then(() => renderApp(store))
+//   .then(() => {
+//     delete window.__REDUX_STATE__;
+//     document.getElementById('redux-state')?.remove();
+//   })
+//   .catch(console.error);
+renderApp(store);
 
-if (module.hot) {
+if (module.hot && process.env.NODE_ENV !== 'production') {
   module.hot.accept(['./App', './routes', './store'], () => {
-    console.log(module.hot);
     renderApp(store);
   });
 }

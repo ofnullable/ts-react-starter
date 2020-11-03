@@ -12,7 +12,7 @@ function Users({ users, loading }: UsersProps) {
     <p>load users...</p>
   ) : (
     <ul>
-      {users?.length &&
+      {users?.length ? (
         users.map((user) => (
           <li key={user.id}>
             <Link to={`/users/${user.id}`}>
@@ -21,7 +21,10 @@ function Users({ users, loading }: UsersProps) {
               </p>
             </Link>
           </li>
-        ))}
+        ))
+      ) : (
+        <li>anyone</li>
+      )}
     </ul>
   );
 }

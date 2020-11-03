@@ -4,7 +4,7 @@ import { resolve } from 'path';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
-import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
+import { ChunkExtractor } from '@loadable/server';
 
 import App from '../App';
 import configureStore from '../store';
@@ -22,14 +22,12 @@ router.get('*', async (req, res, next) => {
 
   const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 
-  const jsx = (
-    <ChunkExtractorManager extractor={extractor}>
-      <Provider store={store}>
-        <StaticRouter location={req.url} context={context}>
-          <App />
-        </StaticRouter>
-      </Provider>
-    </ChunkExtractorManager>
+  const jsx = extractor.collectChunks(
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    </Provider>
   );
 
   renderToStaticMarkup(jsx);
@@ -57,9 +55,9 @@ router.get('*', async (req, res, next) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>TS React Starter!</title>
-        ${tags.styles}
+        <title>TS REACT STARTER</title>
         ${tags.links}
+        ${tags.styles}
     </head>
     <body>
         <div id="root">${renderToString(jsx)}</div>
