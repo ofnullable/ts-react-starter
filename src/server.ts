@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { resolve } from 'path';
-import renderer from './renderer';
-import { webpackDevMiddleware, webpackHotMiddleware } from './HMR';
+import renderer from './middleware/renderer';
+import { webpackDevMiddleware, webpackHotMiddleware } from './middleware/HMR';
 
 const isProd = process.env.NODE_ENV === 'production';
 const app = express();
@@ -14,9 +14,9 @@ if (!isProd) {
   app.use(webpackHotMiddleware);
 }
 
-app.use('/', express.static(resolve('./public'), { index: false }));
+app.use(express.static(resolve('./public'), { index: false }));
 
-app.use('/', express.static(resolve('./build'), { index: false }));
+app.use(express.static(resolve('./build'), { index: false }));
 
 app.use(renderer);
 

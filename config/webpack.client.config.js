@@ -8,7 +8,7 @@ const base = require('./webpack.base');
 const mode = process.env.NODE_ENV || 'development';
 const isProd = mode === 'production';
 const clientLoaders = loaders('client');
-const hotMiddlewareScript = `webpack-hot-middleware/client?path=/__webpack_hmr&reload=true`;
+const hotMiddlewareScript = `webpack-hot-middleware/client`;
 
 module.exports = {
   ...base,

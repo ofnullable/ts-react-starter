@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { Store } from 'redux';
-import { match } from 'react-router-dom';
 import { loadUserRequest } from '../store/actions/users';
 import { useSelector } from 'react-redux';
 import { AppState } from '../store/reducers';
@@ -24,7 +22,7 @@ function User() {
   );
 }
 
-User.fetch = async ({ store, match }: { store: Store<AppState>; match: match<{ id: string }> }) => {
+(User as Container<{ id: string }>).preload = async ({ store, match }) => {
   const user = store.getState().users.user;
   const userId = match.params.id;
   const needFetch = !user.data || user.data.id !== Number(userId);

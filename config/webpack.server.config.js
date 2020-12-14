@@ -15,7 +15,7 @@ module.exports = {
   },
 
   entry: {
-    server: './src/server/index.ts',
+    server: './src/server.ts',
   },
 
   output: {
