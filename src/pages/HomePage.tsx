@@ -8,7 +8,7 @@ const mainTextStyle = css`
 function HomePage() {
   return (
     <div className="container">
-      <h1 css={[mainTextStyle]}>Ts React Starter 🚀</h1>
+      <h1 css={[mainTextStyle]}>TS React Starter 🚀</h1>
     </div>
   );
 }

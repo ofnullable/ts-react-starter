@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { Store } from 'redux';
 import { useSelector } from 'react-redux';
 import { renderRoutes, RouteConfig } from 'react-router-config';
 import { loadUsersRequest } from '../store/actions/users';
 import Users from '../components/Users';
 import { AppState } from '../store/reducers';
-import { Store } from 'redux';
 
 interface UsersPageProps {
   route?: RouteConfig;
@@ -21,7 +21,7 @@ function UsersPage({ route }: UsersPageProps) {
   );
 }
 
-UsersPage.fetch = async ({ store }: { store: Store<AppState> }) => {
+(UsersPage as Container<UsersPageProps>).preload = async ({ store }: { store: Store<AppState> }) => {
   if (!store.getState().users.users.data) {
     store.dispatch(loadUsersRequest());
   }
