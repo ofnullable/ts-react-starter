@@ -4,6 +4,10 @@ import { match } from 'react-router-dom';
 import { AppState } from '../store/reducers';
 
 declare global {
+  interface NodeModule {
+    hot?: any;
+  }
+
   interface Window {
     __REDUX_STATE__?: AppState;
     __REDUX_DEVTOOLS_EXTENSION__?: () => any;
@@ -17,4 +21,10 @@ declare global {
 
   type Preload<T> = (ctx: Context<T>) => Promise<unknown>;
   type Container<T> = ComponentType<T> & { preload?: Preload<T> };
+}
+
+declare module 'react' {
+  interface HTMLAttributes<T> {
+    css?: any;
+  }
 }
