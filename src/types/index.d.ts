@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentType } from 'react';
 import { Store } from 'redux';
 import { match } from 'react-router-dom';
-import { AppState } from '../store/reducers';
+import { AppState } from '../store';
 
 declare global {
   interface NodeModule {
@@ -13,6 +14,12 @@ declare global {
     __REDUX_DEVTOOLS_EXTENSION__?: () => any;
   }
 
+  interface BaseState<T> {
+    data: T | null;
+    loading: boolean;
+    error: string | unknown;
+  }
+
   export interface Context<T> {
     store: Store<AppState>;
     match: match<T>;
@@ -21,10 +28,18 @@ declare global {
 
   type Preload<T> = (ctx: Context<T>) => Promise<unknown>;
   type Container<T> = ComponentType<T> & { preload?: Preload<T> };
+
+  type ActionCreator<T extends string> = (...args: any[]) => { type: T };
+
+  type ActionTypes<T extends any> = T extends ActionCreator<any>
+    ? ReturnType<T>
+    : T extends Record<string, any>
+    ? { [k in keyof T]: ActionTypes<T[k]> }[keyof T]
+    : never;
 }
 
 declare module 'react' {
-  interface HTMLAttributes<T> {
+  interface Attributes {
     css?: any;
   }
 }

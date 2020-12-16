@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { loadUserRequest } from '../store/actions/users';
 import { useSelector } from 'react-redux';
-import { AppState } from '../store/reducers';
+import { AppState } from '../store';
+import { actions } from '../store/users/action';
 
 function User() {
   const { data: user, loading } = useSelector((state: AppState) => state.users.user);
@@ -27,7 +27,7 @@ function User() {
   const userId = match.params.id;
   const needFetch = !user.data || user.data.id !== Number(userId);
   if (needFetch && !user.loading) {
-    store.dispatch(loadUserRequest(userId));
+    store.dispatch(actions.loadUserRequest(userId));
   }
 };
 

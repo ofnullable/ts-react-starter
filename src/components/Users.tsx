@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { User } from '../store/models';
+import { User } from '../interfaces/models';
 
 interface UsersProps {
   users: User[] | null;

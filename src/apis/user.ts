@@ -1,8 +1,8 @@
-import api from './index';
 import { AxiosPromise } from 'axios';
-import { User } from '../store/models';
+import api from './index';
+import { User } from '../interfaces/models';
 
-export const loadUserApi = (id: number): AxiosPromise<User> => {
+export const loadUserApi = (id: string): AxiosPromise<User> => {
   return api.get(`/users/${id}`);
 };
 

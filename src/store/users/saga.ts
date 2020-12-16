@@ -1,19 +1,13 @@
 import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
-import * as types from '../actions/types';
 import { loadUserApi, loadUsersApi } from '../../apis/user';
-import { loadUserSuccess, loadUserFailure, loadUsersSuccess, loadUsersFailure } from '../actions/users';
+import { actions, types } from './action';
 
-interface LoadUserAction {
-  type: typeof types.LOAD_USER_REQUEST;
-  id: number;
-}
-
-function* loadUser({ id }: LoadUserAction) {
+function* loadUser({ id }: ReturnType<typeof actions.loadUserRequest>) {
   try {
     const { data } = yield call(loadUserApi, id);
-    yield put(loadUserSuccess(data));
+    yield put(actions.loadUserSuccess(data));
   } catch (e) {
-    yield put(loadUserFailure(e.response?.data.message));
+    yield put(actions.loadUserFailure(e.response?.data.message));
   }
 }
 
@@ -24,9 +18,9 @@ function* watchLoadUser() {
 function* loadUsers() {
   try {
     const { data } = yield call(loadUsersApi);
-    yield put(loadUsersSuccess(data));
+    yield put(actions.loadUsersSuccess(data));
   } catch (e) {
-    yield put(loadUsersFailure(e.response?.data.message));
+    yield put(actions.loadUsersFailure(e.response?.data.message));
   }
 }
 

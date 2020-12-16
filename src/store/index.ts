@@ -30,4 +30,5 @@ function configureStore(context: AppContext, appState?: AppState): ReduxStore {
   return store;
 }
 
+export { AppState } from './reducers';
 export default configureStore;

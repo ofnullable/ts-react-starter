@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Store } from 'redux';
 import { useSelector } from 'react-redux';
 import { renderRoutes, RouteConfig } from 'react-router-config';
-import { loadUsersRequest } from '../store/actions/users';
 import Users from '../components/Users';
-import { AppState } from '../store/reducers';
+import { AppState } from '../store';
+import { actions } from '../store/users/action';
 
 interface UsersPageProps {
   route?: RouteConfig;
@@ -21,9 +20,9 @@ function UsersPage({ route }: UsersPageProps) {
   );
 }
 
-(UsersPage as Container<UsersPageProps>).preload = async ({ store }: { store: Store<AppState> }) => {
+(UsersPage as Container<UsersPageProps>).preload = async ({ store }) => {
   if (!store.getState().users.users.data) {
-    store.dispatch(loadUsersRequest());
+    store.dispatch(actions.loadUsersRequest());
   }
 };
 

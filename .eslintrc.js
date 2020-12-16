@@ -11,7 +11,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['react', '@typescript-eslint', 'react-hooks'],
+  plugins: ['react', 'prettier', '@typescript-eslint', 'react-hooks'],
   extends: [
     'prettier',
     'prettier/react',
@@ -20,5 +20,10 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
   ],
-  rules: { 'react/jsx-uses-react': 1, 'react/prop-types': 0, '@typescript-eslint/explicit-module-boundary-types': 0 },
+  rules: {
+    'react/prop-types': 0,
+    'react/jsx-uses-react': 1,
+    'prettier/prettier': [2, { printWidth: 120 }],
+    '@typescript-eslint/explicit-module-boundary-types': 0,
+  },
 };
