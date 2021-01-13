@@ -2,7 +2,7 @@
 import { ComponentType } from 'react';
 import { Store } from 'redux';
 import { match } from 'react-router-dom';
-import { AppState } from '../store';
+import { AppState } from '../src/store';
 
 declare global {
   interface NodeModule {

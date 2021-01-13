@@ -23,12 +23,8 @@ function User() {
 }
 
 (User as Container<{ id: string }>).preload = async ({ store, match }) => {
-  const user = store.getState().users.user;
   const userId = match.params.id;
-  const needFetch = !user.data || user.data.id !== Number(userId);
-  if (needFetch && !user.loading) {
-    store.dispatch(actions.loadUserRequest(userId));
-  }
+  store.dispatch(actions.loadUserRequest(userId));
 };
 
 export default User;

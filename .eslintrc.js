@@ -11,11 +11,17 @@ module.exports = {
       jsx: true,
     },
   },
+  settings: {
+    react: {
+      version: 'latest',
+    },
+  },
   plugins: ['react', 'prettier', '@typescript-eslint', 'react-hooks'],
   extends: [
     'prettier',
     'prettier/react',
     'prettier/@typescript-eslint',
+    'eslint:recommended',
     'plugin:react/recommended',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',

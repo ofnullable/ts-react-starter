@@ -9,8 +9,8 @@
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "lib": ["dom", "dom.iterable", "esnext"],
-    "typeRoots": ["src/types", "node_modules/@types"]
+    "typeRoots": ["types", "node_modules/@types"]
   },
-  "include": ["src"],
+  "include": ["src", "types"],
   "exclude": ["node_modules", "build", "dist"]
 }

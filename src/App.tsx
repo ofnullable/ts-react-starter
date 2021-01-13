@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Store } from 'redux';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useStore } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
@@ -18,9 +18,10 @@ if (typeof Proxy === 'undefined') {
 function App() {
   const store = useStore();
   const location = useLocation();
+  const initPath = useMemo(() => location.pathname, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (initPath !== location.pathname) {
       App.getInitialProps(store, location.pathname, location.search);
     }
   }, [location]);
@@ -30,8 +31,9 @@ function App() {
 
 App.getInitialProps = (store: Store, path: string, search: string): Promise<unknown>[] => {
   return matchRoutes(routes, path).map(({ route, match }) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (route.component as LoadableComponent<unknown>).load().then(({ default: comp }: any) => {
-      return (comp as Container<typeof match.params>).preload?.({ store, match, search }) || Promise.resolve();
+      return (comp as Container<unknown>).preload?.({ store, match, search }) || Promise.resolve();
     })
   );
 };
