@@ -5,7 +5,8 @@ import rootReducer, { AppState } from './reducers';
 import rootSaga from './sagas';
 
 interface AppContext {
-  isServer?: boolean;
+  userAgent?: string;
+  locale?: string;
 }
 
 export interface ReduxStore extends Store<AppState> {
@@ -15,8 +16,8 @@ export interface ReduxStore extends Store<AppState> {
 
 const prod = process.env.NODE_ENV === 'production';
 
-function configureStore(context: AppContext, appState?: AppState): ReduxStore {
-  const devtools = !context.isServer && window.__REDUX_DEVTOOLS_EXTENSION__;
+function configureStore(appState?: AppState, ctx?: AppContext): ReduxStore {
+  const devtools = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__;
 
   const sagaMiddleware = createSagaMiddleware();
 

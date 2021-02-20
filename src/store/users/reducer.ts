@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import { types, UserAction } from './action';
-import { User } from '../../interfaces/models';
+import { User } from '../../lib/interfaces/models';
 
 interface UserState {
   user: BaseState<User>;
@@ -11,12 +11,12 @@ const initialState: UserState = {
   user: {
     data: null,
     loading: false,
-    error: '',
+    error: null,
   },
   users: {
     data: null,
     loading: false,
-    error: '',
+    error: null,
   },
 };
 
@@ -26,7 +26,7 @@ export default (state: UserState = initialState, action: UserAction) =>
       case types.LOAD_USER_REQUEST:
         draft.user.loading = true;
         draft.user.data = null;
-        draft.user.error = '';
+        draft.user.error = null;
         break;
       case types.LOAD_USER_SUCCESS:
         draft.user.data = action.data;
@@ -39,7 +39,7 @@ export default (state: UserState = initialState, action: UserAction) =>
       case types.LOAD_USERS_REQUEST:
         draft.users.loading = true;
         draft.users.data = null;
-        draft.users.error = '';
+        draft.users.error = null;
         break;
       case types.LOAD_USERS_SUCCESS:
         draft.users.data = action.data;

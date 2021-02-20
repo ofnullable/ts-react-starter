@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import configureStore, { ReduxStore } from './store';
 
-const store = configureStore({}, window.__REDUX_STATE__);
+const store = configureStore(window.__REDUX_STATE__);
 const render = module.hot ? ReactDOM.render : ReactDOM.hydrate;
 
 function renderApp(reduxStore: ReduxStore): void {
@@ -27,6 +27,9 @@ renderApp(store);
 
 if (module.hot && process.env.NODE_ENV !== 'production') {
   module.hot.accept(['./App', './routes', './store'], () => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const newReducer = require('./store/reducers').default;
+    store.replaceReducer(newReducer);
     renderApp(store);
   });
 }

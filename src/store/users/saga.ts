@@ -1,5 +1,5 @@
 import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
-import { loadUserApi, loadUsersApi } from '../../apis/user';
+import { loadUserApi, loadUsersApi } from '../../lib/api/user';
 import { actions, types } from './action';
 
 function* loadUser({ id }: ReturnType<typeof actions.loadUserRequest>) {
@@ -7,7 +7,7 @@ function* loadUser({ id }: ReturnType<typeof actions.loadUserRequest>) {
     const { data } = yield call(loadUserApi, id);
     yield put(actions.loadUserSuccess(data));
   } catch (e) {
-    yield put(actions.loadUserFailure(e.response?.data.message));
+    yield put(actions.loadUserFailure(e.response?.data));
   }
 }
 
@@ -20,7 +20,7 @@ function* loadUsers() {
     const { data } = yield call(loadUsersApi);
     yield put(actions.loadUsersSuccess(data));
   } catch (e) {
-    yield put(actions.loadUsersFailure(e.response?.data.message));
+    yield put(actions.loadUsersFailure(e.response?.data));
   }
 }
 

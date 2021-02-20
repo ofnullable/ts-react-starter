@@ -14,10 +14,16 @@ declare global {
     __REDUX_DEVTOOLS_EXTENSION__?: () => any;
   }
 
+  interface ErrorResponse {
+    status: number;
+    message: string;
+    messageCode: string;
+  }
+
   interface BaseState<T> {
     data: T | null;
     loading: boolean;
-    error: string | unknown;
+    error: ErrorResponse | null;
   }
 
   export interface Context<T> {
@@ -42,4 +48,9 @@ declare module 'react' {
   interface Attributes {
     css?: any;
   }
+}
+
+declare module 'react-redux' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultRootState extends AppState {}
 }

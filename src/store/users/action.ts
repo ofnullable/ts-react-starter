@@ -1,4 +1,4 @@
-import { User } from '../../interfaces/models';
+import { User } from '../../lib/interfaces/models';
 
 export const types = {
   LOAD_USER_REQUEST: 'users/LOAD_USER_REQUEST',
@@ -17,7 +17,7 @@ export const actions = {
   loadUserSuccess(data: User) {
     return { type: types.LOAD_USER_SUCCESS, data };
   },
-  loadUserFailure(error: string) {
+  loadUserFailure(error: any) {
     return { type: types.LOAD_USER_FAILURE, error };
   },
   loadUsersRequest() {
@@ -26,7 +26,7 @@ export const actions = {
   loadUsersSuccess(data: User[]) {
     return { type: types.LOAD_USERS_SUCCESS, data };
   },
-  loadUsersFailure(error: string) {
+  loadUsersFailure(error: any) {
     return { type: types.LOAD_USERS_FAILURE, error };
   },
 };

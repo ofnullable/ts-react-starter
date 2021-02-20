@@ -1,22 +1,21 @@
-import * as express from 'express';
+import * as Koa from 'koa';
+import * as serve from 'koa-static';
 import { resolve } from 'path';
-import renderer from './middleware/renderer';
-import { webpackDevMiddleware, webpackHotMiddleware } from './middleware/HMR';
+import renderer from './lib/middleware/renderer';
 
 const isProd = process.env.NODE_ENV === 'production';
-const app = express();
-
-app.disable('etag');
-app.disable('x-powered-by');
+const app = new Koa();
 
 if (!isProd) {
-  app.use(webpackDevMiddleware);
-  app.use(webpackHotMiddleware);
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { devMiddleware, hotMiddleware } = require('./lib/middleware/HMR');
+  app.use(devMiddleware);
+  app.use(hotMiddleware);
 }
 
-app.use(express.static(resolve('./public'), { index: false }));
+app.use(serve(resolve('./public'), { index: false }));
 
-app.use(express.static(resolve('./build'), { index: false }));
+app.use(serve(resolve('./build'), { index: false }));
 
 app.use(renderer);
 

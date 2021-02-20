@@ -1,30 +1,27 @@
-import * as express from 'express';
 import * as React from 'react';
 import { resolve } from 'path';
+import { Middleware } from 'koa';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
-import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import { ChunkExtractor } from '@loadable/server';
-
-import App from '../App';
-import configureStore from '../store';
-
-const router = express.Router();
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
+import App from '../../App';
+import configureStore from '../../store';
 
 const statsFile = resolve('./build/loadable-stats.json');
 
-router.get('*', async (req, res, next) => {
-  const context = {};
-  const store = configureStore({ isServer: true });
+const renderer: Middleware = async (ctx) => {
+  const store = configureStore(undefined, { userAgent: ctx.header['user-agent'] });
+
   const sagaPromises = store.run.toPromise();
 
-  await Promise.all(App.getInitialProps(store, req.path, req.url.replace(req.path, '')));
+  await Promise.all(App.getInitialProps(store, ctx.path, ctx.url.replace(ctx.path, '')));
 
   const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 
   const jsx = extractor.collectChunks(
     <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
+      <StaticRouter location={ctx.url}>
         <App />
       </StaticRouter>
     </Provider>
@@ -36,7 +33,7 @@ router.get('*', async (req, res, next) => {
   try {
     await sagaPromises;
   } catch (e) {
-    return next(e);
+    return ctx.throw(e);
   }
 
   const stateString = JSON.stringify(store.getState()).replace(/</g, '\\u003c');
@@ -48,7 +45,7 @@ router.get('*', async (req, res, next) => {
     scripts: reduxState + extractor.getScriptTags(),
   };
 
-  return res.send(`
+  return (ctx.body = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -65,6 +62,6 @@ router.get('*', async (req, res, next) => {
     </body>
     </html>
   `);
-});
+};
 
-export default router;
+export default renderer;
