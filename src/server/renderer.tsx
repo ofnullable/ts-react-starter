@@ -6,12 +6,12 @@ import { StaticRouter } from 'react-router-dom';
 import { ChunkExtractor } from '@loadable/server';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import App from '../App';
-import configureStore from '../store';
+import createStore from '../store';
 
 const statsFile = resolve('./build/loadable-stats.json');
 
 const renderer: Middleware = async (ctx) => {
-  const store = configureStore(undefined, { userAgent: ctx.header['user-agent'] });
+  const store = createStore(undefined, { userAgent: ctx.header['user-agent'] });
 
   const sagaPromises = store.run.toPromise();
 

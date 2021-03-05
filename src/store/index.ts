@@ -15,7 +15,7 @@ interface ReduxStore extends Store<RootState> {
   close: () => END;
 }
 
-function store(preloadedState?: RootState, ctx?: AppContext): ReduxStore {
+function createStore(preloadedState?: RootState, ctx?: AppContext): ReduxStore {
   const sagaMiddleware = createSagaMiddleware();
 
   const store = configureStore({
@@ -32,4 +32,4 @@ function store(preloadedState?: RootState, ctx?: AppContext): ReduxStore {
 }
 
 export { RootState } from './reducers';
-export default store;
+export default createStore;

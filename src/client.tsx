@@ -8,9 +8,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
-import configureStore from './store';
+import createStore from './store';
 
-const store = configureStore(window.__REDUX_STATE__);
+const store = createStore(window.__REDUX_STATE__);
 const render = module.hot ? ReactDOM.render : ReactDOM.hydrate;
 
 function renderApp(reduxStore: Store): void {
