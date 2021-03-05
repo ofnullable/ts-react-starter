@@ -3,7 +3,7 @@ import { Middleware } from 'koa';
 import { PassThrough } from 'stream';
 
 const webpack = require('webpack');
-const config = require('../../../config/webpack.client.config');
+const config = require('../../config/webpack.client.config');
 
 const compiler = webpack(config);
 

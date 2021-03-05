@@ -15,9 +15,9 @@ interface ReduxStore extends Store<RootState> {
   close: () => END;
 }
 
-const sagaMiddleware = createSagaMiddleware();
-
 function store(preloadedState?: RootState, ctx?: AppContext): ReduxStore {
+  const sagaMiddleware = createSagaMiddleware();
+
   const store = configureStore({
     reducer,
     preloadedState,

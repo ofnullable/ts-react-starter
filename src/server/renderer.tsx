@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { ChunkExtractor } from '@loadable/server';
 import { renderToStaticMarkup, renderToString } from 'react-dom/server';
-import App from '../../App';
-import configureStore from '../../store';
+import App from '../App';
+import configureStore from '../store';
 
 const statsFile = resolve('./build/loadable-stats.json');
 
